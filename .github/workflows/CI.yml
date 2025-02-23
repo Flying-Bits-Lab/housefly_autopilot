@@ -1,0 +1,15 @@
+name: Housefly Autopilot CI
+run-name: ${{github.actor}} is running Housefly Autopilot CI 🪰
+on:
+  pull_request:
+    types: [opened, reopened, review_requested, synchronize]
+jobs:
+  unit_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Building tests
+        run: make tests
+      - name: Run the tests
+        run: ./tests
