@@ -4,6 +4,16 @@ on:
   pull_request:
     types: [opened, reopened, review_requested, synchronize]
 jobs:
+  branch-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch name
+        run: |
+          branch_name=${GITHUB_HEAD_REF#refs/heads/}
+          if [[ ! $branch_name =~ ^(feature|task|fix)/housefly_autopilot/[0-9]+$ ]]; then
+            echo "Branch name '$branch_name' does not follow the naming convention."
+            exit 1
+          fi
   lint:
     runs-on: ubuntu-latest
     steps:
