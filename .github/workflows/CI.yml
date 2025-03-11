@@ -14,6 +14,19 @@ jobs:
             echo "Branch name '$branch_name' does not follow the naming convention."
             exit 1
           fi
+  commit-message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check commit messages
+        run: |
+          for commit in $(git rev-list ${{ github.event.before }}..${{ github.sha }}); do
+            message=$(git log --format=%B -n 1 $commit)
+            if ! echo "$message" | grep -Eq '^(task|fix|feature): housefly_autopilot/[0-9]+ .+'; then
+              echo "Error: Commit '$commit' does not follow the commit message format."
+              echo "Expected format: <task|fix|feature>: housefly_autopilot/<issue_number> <message>"
+              exit 1
+            fi
+          done
   lint:
     runs-on: ubuntu-latest
     steps:
