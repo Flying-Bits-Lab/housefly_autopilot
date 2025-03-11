@@ -4,6 +4,35 @@ on:
   pull_request:
     types: [opened, reopened, review_requested, synchronize]
 jobs:
+  branch-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch name
+        run: |
+          branch_name=${GITHUB_REF#refs/heads/}
+          if [[ ! $branch_name =~ ^(feature|task|fix)/housefly_autopilot/[0-9]+$ ]]; then
+            echo "Branch name '$branch_name' does not follow the naming convention."
+            exit 1
+          fi
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+      - name: Install cpplint
+        run: pip install cpplint
+      - name: Run linter on include folder
+        run: |
+          echo "Running cpplint on include directory..."
+          find include -type f \( -name "*.c" -o -name "*.h" \) -exec cpplint --root=include {} +
+      - name: Run linter on src folder
+        run: |
+          echo "Running cpplint on src directory..."
+          find src -type f \( -name "*.c" -o -name "*.h" \) -exec cpplint --root=src {} +
   unit_tests:
     runs-on: ubuntu-latest
     steps:
