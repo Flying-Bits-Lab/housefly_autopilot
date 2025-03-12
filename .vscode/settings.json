@@ -1,5 +1,6 @@
 {
   "files.associations": {
     "config_repository.h": "c"
-  }
+  },
+  "cSpell.words": ["cpplint"]
 }
