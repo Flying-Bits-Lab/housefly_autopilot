@@ -297,6 +297,7 @@ void should_init_flight_state_and_return_pointer() {
   TEST_ASSERT_NOT_NULL_MESSAGE(flight_status_pointer, "Should NOT be NULL");
 }
 
+/* CONFIG REPOSITORY TESTS */
 void should_return_config_repository() {
   ConfigRepository *config_repo_pointer = get_config();
   TEST_ASSERT_NOT_NULL_MESSAGE(config_repo_pointer, "Should NOT be NULL");
@@ -309,6 +310,18 @@ void should_return_config_repository() {
   TEST_ASSERT_MESSAGE(
       config_repo_pointer->flying_vehicle.weight == FLYING_VEHICLE_WEIGHT,
       "Should have the weight");
+
+  TEST_ASSERT_MESSAGE(
+      config_repo_pointer->flying_vehicle.cg_x == FLYING_VEHICLE_CG_X,
+      "Should have the cg_x");
+
+  TEST_ASSERT_MESSAGE(
+      config_repo_pointer->flying_vehicle.cg_y == FLYING_VEHICLE_CG_Y,
+      "Should have the cg_y");
+
+  TEST_ASSERT_MESSAGE(
+      config_repo_pointer->flying_vehicle.cg_z == FLYING_VEHICLE_CG_Z,
+      "Should have the cg_z");
 }
 
 void setUp(void) {}

@@ -27,13 +27,19 @@
 
 /* -- DEFAULT CONFIGURATIONS -- */
 #define FLYING_VEHICLE_REACTION_LATENCY 150
-#define FLYING_VEHICLE_SERVICE_CEILING 10
-#define FLYING_VEHICLE_WEIGHT 1.0
+#define FLYING_VEHICLE_SERVICE_CEILING 20
+#define FLYING_VEHICLE_WEIGHT 1000
+#define FLYING_VEHICLE_CG_X 0
+#define FLYING_VEHICLE_CG_Y 0
+#define FLYING_VEHICLE_CG_Z 0
 
 typedef struct {
   unsigned char service_ceiling;
   unsigned char reaction_latency;
-  float weight;
+  unsigned int weight;
+  unsigned char cg_x;
+  unsigned char cg_y;
+  unsigned char cg_z;
 } FlyingVehicle;
 
 typedef struct {
@@ -44,6 +50,6 @@ typedef struct {
  * @brief Returns the config repository
  * @return Returns the pointer to the config repository
  */
-ConfigRepository *get_config();
+const ConfigRepository *get_config();
 
 #endif  // CONFIG_REPOSITORY_H_
