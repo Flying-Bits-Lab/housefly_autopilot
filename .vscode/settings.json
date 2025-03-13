@@ -1,6 +1,7 @@
 {
   "files.associations": {
-    "config_repository.h": "c"
+    "config_repository.h": "c",
+    "state_management.h": "c"
   },
   "cSpell.words": ["cpplint"]
 }

@@ -71,6 +71,20 @@ void should_reset_flight_state() {
   }
 }
 
+void should_set_position() {
+  FlightStatus *fs = NULL;
+  fs = init();
+  float altitude = 15.0f;
+  float longitude = -122.4194f;
+  float latitude = 37.7749f;
+
+  set_position(fs, longitude, latitude, altitude);
+
+  TEST_ASSERT_FLOAT_WITHIN(0.0001f, 37.7749f, fs->current_latitude);
+  TEST_ASSERT_FLOAT_WITHIN(0.0001f, -122.4194f, fs->current_longitude);
+  TEST_ASSERT_FLOAT_WITHIN(0.0001f, 15.0f, fs->current_altitude);
+}
+
 /**
  * @brief Regardless of the flags, the new state can not be set to GND if
  * the current state exists in the invalid array
@@ -299,7 +313,7 @@ void should_init_flight_state_and_return_pointer() {
 
 /* CONFIG REPOSITORY TESTS */
 void should_return_config_repository() {
-  ConfigRepository *config_repo_pointer = get_config();
+  const ConfigRepository *config_repo_pointer = get_config();
   TEST_ASSERT_NOT_NULL_MESSAGE(config_repo_pointer, "Should NOT be NULL");
   TEST_ASSERT_MESSAGE(config_repo_pointer->flying_vehicle.reaction_latency ==
                           FLYING_VEHICLE_REACTION_LATENCY,
@@ -334,6 +348,7 @@ int main() {
   RUN_TEST(should_set_safety_test_flag);
   RUN_TEST(should_reset_all_flags);
   RUN_TEST(should_reset_flight_state);
+  RUN_TEST(should_set_position);
   RUN_TEST(should_validation_return_false_for_new_state_GND);
   RUN_TEST(should_validation_return_true_for_new_state_GND);
   RUN_TEST(should_validation_return_false_for_new_state_TO);

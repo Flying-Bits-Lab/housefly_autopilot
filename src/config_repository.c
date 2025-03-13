@@ -26,11 +26,15 @@
 
 const ConfigRepository *get_config() {
   static const ConfigRepository config = {
-      .flying_vehicle = {.service_ceiling = FLYING_VEHICLE_SERVICE_CEILING,
-                         .reaction_latency = FLYING_VEHICLE_REACTION_LATENCY,
-                         .weight = FLYING_VEHICLE_WEIGHT,
-                         .cg_x = FLYING_VEHICLE_CG_X,
-                         .cg_y = FLYING_VEHICLE_CG_Y,
-                         .cg_z = FLYING_VEHICLE_CG_Z}};
+      .flying_vehicle = {
+          .service_ceiling = FLYING_VEHICLE_SERVICE_CEILING,
+          .reaction_latency = FLYING_VEHICLE_REACTION_LATENCY,
+          .registry_number = FLYING_VEHICLE_REGISTRY_NUMBER,
+          .latitude_diff_boundary = FLYING_VEHICLE_LATITUDE_DIFF_BOUNDARY,
+          .longitude_diff_boundary = FLYING_VEHICLE_LONGITUDE_DIFF_BOUNDARY,
+          .weight = FLYING_VEHICLE_WEIGHT,
+          .cg_x = FLYING_VEHICLE_CG_X,
+          .cg_y = FLYING_VEHICLE_CG_Y,
+          .cg_z = FLYING_VEHICLE_CG_Z}};
   return &config;
 }

@@ -21,41 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+#ifndef GPS_UTILS_H_
+#define GPS_UTILS_H_
 
-#ifndef CONFIG_REPOSITORY_H_
-#define CONFIG_REPOSITORY_H_
-
-/* -- DEFAULT CONFIGURATIONS -- */
-#define FLYING_VEHICLE_REGISTRY_NUMBER 0x00
-#define FLYING_VEHICLE_REACTION_LATENCY 150
-#define FLYING_VEHICLE_SERVICE_CEILING 20
-#define FLYING_VEHICLE_LATITUDE_DIFF_BOUNDARY 5
-#define FLYING_VEHICLE_LONGITUDE_DIFF_BOUNDARY 5
-#define FLYING_VEHICLE_WEIGHT 1000
-#define FLYING_VEHICLE_CG_X 0
-#define FLYING_VEHICLE_CG_Y 0
-#define FLYING_VEHICLE_CG_Z 0
-
-typedef struct {
-  unsigned char registry_number;
-  unsigned char service_ceiling;
-  unsigned char reaction_latency;
-  unsigned char latitude_diff_boundary;
-  unsigned char longitude_diff_boundary;
-  unsigned int weight;
-  unsigned char cg_x;
-  unsigned char cg_y;
-  unsigned char cg_z;
-} FlyingVehicle;
-
-typedef struct {
-  FlyingVehicle flying_vehicle;
-} ConfigRepository;
-
-/**
- * @brief Returns the config repository
- * @return Returns the pointer to the config repository
- */
-const ConfigRepository *get_config();
-
-#endif  // CONFIG_REPOSITORY_H_
+#endif  // GPS_UTILS_H_
