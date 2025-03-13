@@ -38,6 +38,9 @@ typedef enum {
 
 typedef struct {
   unsigned char flags;
+  float current_altitude;
+  float current_latitude;
+  float current_longitude;
   FlightState state;
 } FlightStatus;
 
@@ -70,6 +73,17 @@ void reset_sftytstflg(unsigned char *flags);
 void reset_flags(unsigned char *flags);
 
 /**
+ * @brief Sets the new position
+ * @param[in,out] current_state
+ * @param new_longitude
+ * @param new_latitude
+ * @param new_altitude
+ * @return void
+ */
+void set_position(FlightStatus *flight_status, float new_longitude,
+                  float new_latitude, float new_altitude);
+
+/**
  * @brief Resets the flight state. The value will be set GND_STAT
  * @param[out] current_state
  * @return void
@@ -80,9 +94,9 @@ void reset_state(FlightState *current_state);
  * @brief Sets the flight state to the requested state
  * @param[in,out] curren_state
  * @param new_state
- * @return void
+ * @return 1 if successful and -1 if unsuccessful
  */
-void set_requested_state(FlightState *current_state, FlightState new_state,
+char set_requested_state(FlightState *current_state, FlightState new_state,
                          unsigned char flags);
 
 /**
@@ -98,7 +112,7 @@ char validate_requested_state(FlightState current_state, FlightState new_state,
 
 /**
  * @brief Initiates the flight state machine
- * @returns Returns the pointer to the flight state machine
+ * @returns The pointer to the flight state machine
  */
 FlightStatus *init();
 

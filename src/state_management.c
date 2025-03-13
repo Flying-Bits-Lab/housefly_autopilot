@@ -34,13 +34,23 @@ void reset_sftytstflg(unsigned char *flags) { *flags &= ~(1 << 0); }
 
 void reset_flags(unsigned char *flags) { *flags = 0x00; }
 
+void set_position(FlightStatus *flight_status, float new_longitude,
+                  float new_latitude, float new_altitude) {
+  flight_status->current_altitude = new_altitude;
+  flight_status->current_latitude = new_latitude;
+  flight_status->current_longitude = new_longitude;
+}
+
 void reset_state(FlightState *current_state) { *current_state = GND_STAT; }
 
-void set_requested_state(FlightState *current_state, FlightState new_state,
+char set_requested_state(FlightState *current_state, FlightState new_state,
                          unsigned char flags) {
+  char result = -1;
   if (validate_requested_state(*current_state, new_state, flags)) {
     *current_state = new_state;
+    result = 1;
   }
+  return result;
 }
 
 char validate_requested_state(FlightState current_state, FlightState new_state,
